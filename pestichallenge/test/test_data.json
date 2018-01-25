@@ -1,0 +1,37 @@
+{
+    "mirror": {
+        "classname": "I",
+        "input": "AbCz012",
+        "output": "ZyXa987"
+    },
+    "everyFourthNone": {
+        "classname": "T",
+        "input": "",
+        "output": ""
+    },
+    "everyFourthShort": {
+        "classname": "T",
+        "input": "012",
+        "output": "012"
+    },
+    "hex": {
+        "classname": "H",
+        "input": "FOo123",
+        "output": "464F6F313233"
+    },
+    "mirrorFull": {
+        "classname": "I",
+        "input": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        "output": "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA9876543210"
+    },
+    "everyFourth": {
+        "classname": "T",
+        "input": "0123456789",
+        "output": "01245689"
+    },
+    "MD5": {
+        "classname": "M",
+        "input": "31337c0d3r5!!!",
+        "output": "a80d21609b0ff93a3848aa9c8c0f1c13"
+    }
+}
