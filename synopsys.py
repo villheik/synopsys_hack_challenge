@@ -1,4 +1,4 @@
-import urllib2
+import urllib.request
 import json
 
 class Graph:
@@ -19,63 +19,56 @@ class Tile:
         self.coord = coord
         self.graph = graph
         self.neighbours = []
-        self.setNeighbours()
-
-
+        self.win = False
+        
     def setNeighbours(self):
         url = "http://188.166.28.247/villheik%40student.oulu.fi/challenges/2/?pos=" + self.coord + "&look="
-        print url
-        north = json.loads(urllib2.urlopen(url+"north").read())
-        if (north["tile_type"] != "lava" and self.graph.checkGraph(north["tile_type"])):
-            print "north: " + ''.join(self.neighbours)
-            self.graph.addToGraph(north["tile_type"])
-            self.neighbours.extend(Tile(north["pos"], self.graph))
-            print "north: " + ''.join(self.neighbours)
-            
-            
-        south = json.loads(urllib2.urlopen(url+"south").read())
-        if (south["tile_type"] != "lava" and self.graph.checkGraph(south["tile_type"])):
-            print "south: " + ''.join(self.neighbours)
-            self.graph.addToGraph(south["tile_type"])
-            self.neighbours.extend(Tile(south["pos"], self.graph))
-            
-            print south["tile_type"]
 
-        east = json.loads(urllib2.urlopen(url+"east").read())
-        if (east["tile_type"] != "lava" and self.graph.checkGraph(east["tile_type"])):
-            print "east: " + ''.join(self.neighbours)
-            self.graph.addToGraph(east["tile_type"])
-            self.neighbours.extend(Tile(east["pos"], self.graph))
+        req = urllib.request.Request(url+"north")
+        response = urllib.request.urlopen(req)
+        north = json.loads(response.read())
+        if (north["tile_type"] != "lava" and self.graph.checkGraph(north["pos"])):
+            print("North: " + str(north))
+            self.graph.addToGraph(north["pos"])
+            self.neighbours.append(north["pos"])
             
-            print east["tile_type"]
-
-        west = json.loads(urllib2.urlopen(url+"west").read())
-        if (west["tile_type"] != "lava" and self.graph.checkGraph(west["tile_type"])):
-            print "west: " + ''.join(self.neighbours)
-            self.graph.addToGraph(west["tile_type"])
-            self.neighbours.extend(Tile(west["pos"], self.graph))
             
-            print west["tile_type"]
+        req = urllib.request.Request(url+"south")
+        response = urllib.request.urlopen(req)
+        south = json.loads(response.read())
+        if (south["tile_type"] != "lava" and self.graph.checkGraph(south["pos"])):
+            print("South: " + str(south))
+            self.graph.addToGraph(south["pos"])
+            self.neighbours.append(south["pos"])
+            
+        req = urllib.request.Request(url+"east")
+        response = urllib.request.urlopen(req)
+        east = json.loads(response.read())
+        if (east["tile_type"] != "lava" and self.graph.checkGraph(east["pos"])):
+            print("East: " + str(east))
+            self.graph.addToGraph(east["pos"])
+            self.neighbours.append(east["pos"])
+            
+        req = urllib.request.Request(url+"west")
+        response = urllib.request.urlopen(req)
+        west = json.loads(response.read())
+        if (west["tile_type"] != "lava" and self.graph.checkGraph(west["pos"])):
+            print("West:" + str(west))
+            self.graph.addToGraph(west["pos"])
+            self.neighbours.append(west["pos"])
+            
+        return self.neighbours
 
-class SynopsysCrawler:
-    def __init__(self, startTile):
-       self.queue = [startTile]
-       self.visited = set()
-        
-    def BFS(self):
-        while self.queue:
-            vertex = self.queue.pop(0)
-            if vertex not in self.visited:
-                self.visited.add(vertex)
-                for neighbour in vertex.neighbours:
-                    self.queue.extend(neighbour)
-        return visited
 
 if __name__ == "__main__":
     graph = Graph()
     graph.addToGraph("a82b")
     startTile = Tile("a82b", graph)
-    crawler = SynopsysCrawler(startTile)
+    neighbour = startTile.setNeighbours()
+    while neighbour:
+        tile = Tile(neighbour.pop(0), graph)
+        newNeighbours = tile.setNeighbours()
+        neighbour.extend(newNeighbours)
 
 
 
