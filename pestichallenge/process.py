@@ -21,7 +21,8 @@ if sys.version_info[0] != 3:
 # For each line
 for line in sys.stdin:
     # Split pipeline and challenge string separated by whitespace
-    pipeline, input = line.rstrip().split(" ")
+    pipeline = "IMTH"
+    input = "MIKE-SIERRA-IIVARI-QUEBEC-NOVEMBER-HOTEL"
 
     # Process the challenge and print out the response
     print(processor.process(pipeline, input))

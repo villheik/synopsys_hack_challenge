@@ -2,10 +2,11 @@
 #
 # Example: "31337c0d3r5!!!" -> "a80d21609b0ff93a3848aa9c8c0f1c13"
 def transform(n):
-    import md5
+    import hashlib
 
-    m = md5.new(n).hexdigest()
-    return m
+    m = hashlib.md5(bytes(n, "ascii"))
+
+    return m.hexdigest()
 
 
     
