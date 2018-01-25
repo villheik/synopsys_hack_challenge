@@ -2,10 +2,8 @@
 #
 # Example: "FOo123" -> "464F6F313233"
 def transform(n):
-    hexn = []
+    newstring = ''
+    n = list(n)
     for c in n:
-        value = hex(ord(c).replace('0x', ''))
-        if len(value) == 1:
-            value = '0' + value.upper()
-        hexn.append(hv)
-    return reduce(lambda x,y:x+y, hexn)
+        newstring += hex(ord(c))[2:].upper()
+    return newstring
